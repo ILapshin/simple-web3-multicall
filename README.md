@@ -94,9 +94,11 @@ tuple(target contract address, encoded function name with parameters)
 Multicall of three ERC20 tokens of a specified EthDev *address*.
 
 Importing Web3
+
     >>> from web3 import Web3
 
-Defining constants: ERC20 token ABI, token mainnet addresses.
+Defining constants: ERC20 token ABI token mainnet addresses.
+
     # ERC20 ABI string is cropped for readability
     >>> ERC20_ABI = '[{"constant":true,"inputs":[],"name":"name", ...
 
@@ -105,23 +107,28 @@ Defining constants: ERC20 token ABI, token mainnet addresses.
     >>> BNB_ADDRESS = Web3.toChecksumAddress('0xB8c77482e45F1F44dE1745F52C74426C631bDD52')
 
 Initializing web3 instance.
+
     >>> ETH_PROVIDER_URL = 'https://rpc.ankr.com/eth'
     >>> w3 = Web3(Web3.HTTPProvider(ETH_PROVIDER_URL))    
     
 Creating token Web3 contracts.
+
     >>> USDT = w3.eth.contract(address=USDT_ADDRESS, abi=ERC20_ABI)
     >>> USDC = w3.eth.contract(address=USDC_ADDRESS, abi=ERC20_ABI)
     >>> BNB = w3.eth.contract(address=BNB_ADDRESS, abi=ERC20_ABI)
   
-Target user address
+Target user address.
+
     >>> address = '0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe'
 
-Initializing Multicall for mainnet
+Initializing Multicall for mainnet.
+
     >>> from simple_multicall import Multicall
     >>> 
     >>> multicall = Multicall(w3, 'mainnet')
 
 Creating a list of calls via 'Multicall.create_call()' method.
+
     >>> calls = [
     ...     multicall.create_call(USDT, 'balanceOf', [address]),
     ...     multicall.create_call(USDC, 'balanceOf', [address]),
@@ -129,6 +136,7 @@ Creating a list of calls via 'Multicall.create_call()' method.
     ... ]
 
 Executing multicall.
+
     >>> result= multicall.call(calls)
 
     >>> result
@@ -139,6 +147,7 @@ Executing multicall.
     0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02HA>\xf1\xd3\xf2\x00\x00']]
 
 Interpreting results.
+
     >>> print('Block number: ', result[0])
     Block number:  15442332
 
