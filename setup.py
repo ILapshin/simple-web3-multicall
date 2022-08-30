@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 from pathlib import Path
 
-VERSION = '0.1.4' 
+VERSION = '0.1.5' 
 DESCRIPTION = 'Simple Web3 multicall'
 
 this_directory = Path(__file__).parent
